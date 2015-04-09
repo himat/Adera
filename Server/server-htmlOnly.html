@@ -42,7 +42,7 @@
 			console.log(parsedData);
             
             //status.innerHTML = "Core: " + parsedData.coreid + " off";
-			status.innerHTML = "Bottle is open.";
+			status.innerHTML = "Eloise's bottle is open.";
             status.style.fontSize = "85px";
 			
 			thresholdStatus.innerHTML = "";
@@ -67,15 +67,35 @@
 			var pillCount = parsedData.data;
             
 			
-            status.innerHTML = "There are " + pillCount + " pills in the bottle.";
-			if(pillCount > 20)
+            status.innerHTML = "There are " + pillCount + " pills in Eloise's bottle.";
+			if(pillCount > 100)
 			{
 				thresholdStatus.innerHTML = "Above threshold";
 				thresholdStatus.style.color = "blue";
 			}
+			else if(pillCount > 80)
+			{
+				thresholdStatus.innerHTML = "Below 100 threshold";
+				thresholdStatus.style.color = "#66CCFF";
+			}
+			else if(pillCount > 60)
+			{
+				thresholdStatus.innerHTML = "Below 80 threshold";
+				thresholdStatus.style.color = "#E0F0FF";
+			}
+			else if(pillCount > 40)
+			{
+				thresholdStatus.innerHTML = "Below 60 threshold";
+				thresholdStatus.style.color = "#FFE0E0";
+			}
+			else if(pillCount > 20)
+			{
+				thresholdStatus.innerHTML = "Below 40 threshold";
+				thresholdStatus.style.color = "#FF6262";
+			}
 			else
 			{
-				thresholdStatus.innerHTML = "Below threshold";
+				thresholdStatus.innerHTML = "Below critical threshold";
 				thresholdStatus.style.color = "red";
 			}
 			thresholdStatus.style.fontSize = "75px";

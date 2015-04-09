@@ -37,7 +37,7 @@ void loop() {
   analogInputWeight = analogRead(amp);
   weightValue = (analogInputWeight * 3.308)/4096;
 
-  pills = weightValue - 0.3;
+  pills = weightValue - 0.56;
   apxPillCount = constrain(pills * 120 / 1.62, 0, 120);
 
 
