@@ -1,0 +1,19 @@
+extends layout
+
+block content
+    h1= title
+    p Add a new user
+    
+    h2 Add user
+    #addUser
+        fieldset
+            input#inputUserName(type='text', placeholder='username')
+            input#inputUserEmail(type='text', placeholder='email')
+            br
+            input#inputUserFullname(type='text' placeholder='full name')
+            input#inputUserAge(type='text', placeholder='age')
+            br
+            input#inputUserLocation(type='text', placeholder='location')
+            input#inputUserGender(type='text', placeholder='gender')
+            br
+            button#btnAddUser Add User
