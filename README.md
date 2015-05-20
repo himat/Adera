@@ -8,5 +8,5 @@ _____________
 Development
 
 Run 
-	npm install
+```npm install```
 to install all node dependencies 
