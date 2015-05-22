@@ -11,6 +11,7 @@ $(document).ready(function(){
 });
 
 
+
 //Fill table with data
 function populateTable(){
     var tableContent = '';

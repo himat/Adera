@@ -5,6 +5,8 @@ var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 
+var spark = require('spark');
+
 var routes = require('./routes/index');
 var users = require('./routes/users');
 
@@ -65,5 +67,14 @@ app.use(function(err, req, res, next) {
   });
 });
 
+
+spark.on('login', function() {
+	console.log("logged in to spark api");
+
+    
+});
+         
+//Login to the spark api
+spark.login({accessToken: '31f6d1bb72071b4025c220f882b5a95a35f396d8'});
 
 module.exports = app;

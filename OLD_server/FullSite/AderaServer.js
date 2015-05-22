@@ -22,9 +22,15 @@ spark.on('login', function() {
   spark.onEvent('event', function(data) {
     //console.log("Event: " + data);
   });
+    
+    spark.getEventStream(false, 'mine', function(data) {
+        console.log("event stream event: " + JSON.stringify(data) + "\n");
+    });
   
   //Get event for specific core
   spark.listDevices().then(function(devices){
+      console.log(devices[0]);
+      console.log(devices[1]);
     devices[1].onEvent('capOff', function(data) {
       console.log("Event: capOff");
     });

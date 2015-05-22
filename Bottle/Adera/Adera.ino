@@ -16,6 +16,8 @@ char pillCountStr[64];
 
 unsigned long lastTime = 0UL;
 
+char thisID[64];
+
 // This routine runs only once upon reset
 void setup() {
   Time.zone(5);
@@ -24,6 +26,9 @@ void setup() {
   Spark.variable("capStatus", &capStatus, INT);
   pinMode(amp, INPUT);
   pinMode(capRead, INPUT);
+
+  //thisID = Spark.deviceID();
+  Spark.variable("coreID", &thisID, STRING);
 }
 
 // This routine gets called repeatedly, like once every 5-15 milliseconds.
@@ -37,8 +42,8 @@ void loop() {
   analogInputWeight = analogRead(amp);
   weightValue = (analogInputWeight * 3.308)/4096;
 
-  pills = weightValue - 0.56;
-  apxPillCount = constrain(pills * 120 / 1.62, 0, 120);
+  pills = weightValue - 0.156;//0.56;
+  apxPillCount = constrain(pills * 120 / 1.607, 0, 120);
 
 
   if(previousCapStatus != capStatus)

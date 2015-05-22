@@ -26,6 +26,7 @@ router.post('/newuser', function(req, res) {
     });
 });
 
+//DELETE to delete user
 router.delete('/deleteuser/:id', function(req, res) {
     var db = req.db;
     var userToDelete = req.params.id;
