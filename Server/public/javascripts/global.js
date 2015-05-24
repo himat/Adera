@@ -1,9 +1,9 @@
-var userListData = [];
-
-
-
 $(document).ready(function(){
-    populateTable();
+    populateTable('aderaPlaid');
+    populateTable('aderaBlue');
+    showUserInfo('aderaPlaid');
+    showUserInfo('aderaBlue');
+    
     $('#userList table tbody').on('click', 'td a.linkshowuser', showUserInfo);
     
     $('#btnAddUser').on('click', addNewUser);
@@ -15,26 +15,25 @@ $(document).ready(function(){
 
 
 //Fill table with data
-function populateTable(){
+function populateTable(userName){
     var tableContent = '';
    
     
-    $.getJSON('/users/aderaPlaid', function(data) {
-        userListData = data;
+    $.getJSON('/users/'+userName, function(data) {
+        var userData = data;
 
         //Reversing it so that the most recent updates are at the top of the list
-        $.each($(userListData).get().reverse(), function(){
+        $.each($(userData).get().reverse(), function(){
             tableContent += '<tr>';
-            tableContent += '<td><a href="#" class="linkshowuser" rel="' + this._id + '">' + this._id + '</a></td>';
-            tableContent += '<td>'+this.TimeStamp + '</td>';
-            tableContent += '<td>'+this.pills + '</td>';
+            tableContent += '<td >'+this.TimeStamp + '</td>';
+            tableContent += '<td >'+this.pills + '</td>';
             //tableContent += '<td><a href="#" class="linkdeleteuser" rel="' + this._id + '">delete</a></td>';
             tableContent += '</tr>';
         });
         //Insert the content string into the html
-        $('#userList table tbody').html(tableContent);
+        $('#userData.'+userName+' table#tableBottom tbody').html(tableContent);
         
-        $('#userList table tbody').on('click', 'td a.linkshowuser', showUserInfo);
+        $('#userData.'+username+' table#tableBottom tbody').on('click', 'td a.linkshowuser', showUserInfo);
      });
     
     
@@ -59,29 +58,32 @@ function populateTable(){
     });*/
 }
 
-function showUserInfo(event) {
-    //Prevent link from firing
-    event.preventDefault();
+function showUserInfo(userName) {
+    var usersList, userNamesArray;
     
-    var thisUserName = $(this).attr('rel');
-    console.log("thisusername: " + thisUserName);
-    var userNamesArray = userListData.map(function(arrayItem) {
-        return arrayItem._id;
+    console.log("thisusername: " + userName);
+
+    $.getJSON('/users/userslist', function (data) {
+        usersList = data;
+        userNamesArray = usersList.map(function (arrayItem) {
+            return arrayItem._id;
+        });
+
+        var arrayPosition = userNamesArray.indexOf(thisUserName);
+
+        var thisUserObject = usersList[arrayPosition];
+        console.log("thisuserObject: " + thisUserObject);
+
+        //Populate info box
+        $('#userInfoName').text(thisUserObject.name);
+        $('#userInfoPrescriptionPillNumber').text(thisUserObject.prescriptionPillNumber);
+        $('#userInfoPrescriptionFrequency').text(thisUserObject.prescriptionFrequency);
+        $('#userInfoEmail').text(thisUserObject.email);
+        $('#userInfoAge').text(thisUserObject.age);
+        $('#userInfoGender').text(thisUserObject.gender);
     });
-    
-    var arrayPosition = userNamesArray.indexOf(thisUserName);
-    
-    var thisUserObject = userListData[arrayPosition];
-    console.log("thisuserObject: " + thisUserObject);
-    
-    //Populate info box
-    $('#userInfoName').text(thisUserObject.name);
-    $('#userInfoPrescriptionPillNumber').text(thisUserObject.prescriptionPillNumber);
-    $('#userInfoPrescriptionFrequency').text(thisUserObject.prescriptionFrequency);
-    $('#userInfoEmail').text(thisUserObject.email);
-    $('#userInfoAge').text(thisUserObject.age);
-    $('#userInfoGender').text(thisUserObject.gender);
-    
+
+
 };
 
 function addNewUser(event) {

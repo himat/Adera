@@ -4,20 +4,12 @@ var router = express.Router();
 /*
  * GET userlist.
  */
-router.get('/users', function(req, res) {
+router.get('/userslist', function(req, res) {
     var db = req.db;
-    //var arrPlaid = db.collection('aderaPlaid').find().toArray();
-    //console.log(arrPlaid);
-    console.log('get sent to /users');
-    /*var arrBlue = db.collection('aderaBlue').find().toArray(function (err, items) {
-        //console.log(items);
-        db.collection('aderaPlaid').find().toArray(function(err, items2) {
-            res.json(items2);
-        });
-        
-    });*/
-    db.collection('users').find().toArray(function(err, items2) {
-            res.json(items2);
+    console.log('get sent to /userslist');
+   
+    db.collection('users').find().toArray(function(err, items) {
+            res.json(items);
     });
                                                             
 });
