@@ -68,13 +68,32 @@ app.use(function(err, req, res, next) {
 });
 
 
+/*
 spark.on('login', function() {
 	console.log("logged in to spark api");
+    //populateTable();
+        
+  //Get updates for global test event
+  spark.onEvent('event', function(data) {
+    console.log("Event: " + data);
+  });
+    
+    //Get updates for every event from our devices
+    spark.getEventStream(false, 'mine', function(data) {
+        var rawData = JSON.stringify(data)
+        console.log("event stream event: " + rawData + "\n");
+        var data = JSON.parse(rawData);
+        console.log("core id: " + data.coreid);
+        if(data.name === "apxPillCount")
+            console.log("pill count: " + data.data);
+        //TODO: parse the data and output accordingly on site
+    });
+    
 
     
 });
          
 //Login to the spark api
-spark.login({accessToken: '31f6d1bb72071b4025c220f882b5a95a35f396d8'});
+spark.login({accessToken: '31f6d1bb72071b4025c220f882b5a95a35f396d8'});*/
 
 module.exports = app;

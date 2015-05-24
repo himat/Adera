@@ -14,14 +14,20 @@ block content
                 strong Name:
                 |   <span id='userInfoName'></span>
                 br
+                strong Number of Pills Prescribed:
+                |   <span id="userInfoPrescriptionPillNumber"></span>
+                br
+                strong Prscription Frequency:
+                |   <span id="userInfoPrescriptionFrequency"></span>
+                br
+                strong Email:
+                |   <span id="userInfoEmail"></span>
+                br
                 strong Age:
                 |   <span id="userInfoAge"></span>
                 br
                 strong Gender:
                 |   <span id="userInfoGender"></span>
-                br
-                strong Location:
-                |   <span id="userInfoLocation"></span>
         //  /USER INFO
 
         // USER LIST
@@ -29,9 +35,10 @@ block content
         #userList
             table
                 thead
-                    th UserName
-                    th Email
-                    th Delete?
+                    th Name
+                    th Last updated
+                    th Pills in bottle
+                    //th Edit
                 tbody
         // /USER LIST
 

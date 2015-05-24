@@ -1,5 +1,7 @@
 var userListData = [];
 
+
+
 $(document).ready(function(){
     populateTable();
     $('#userList table tbody').on('click', 'td a.linkshowuser', showUserInfo);
@@ -15,23 +17,46 @@ $(document).ready(function(){
 //Fill table with data
 function populateTable(){
     var tableContent = '';
+   
     
-    //jQuery AJAX call 
-    $.getJSON('/users/userlist', function(data) {
-        //adds data array to a global object
+    $.getJSON('/users/aderaPlaid', function(data) {
         userListData = data;
-        $.each(data, function(){
+
+        //Reversing it so that the most recent updates are at the top of the list
+        $.each($(userListData).get().reverse(), function(){
             tableContent += '<tr>';
-            tableContent += '<td><a href="#" class="linkshowuser" rel="' + this.username + '">' + this.username + '</a></td>';
-            tableContent += '<td>'+this.email + '</td>';
-            tableContent += '<td><a href="#" class="linkdeleteuser" rel="' + this._id + '">delete</a></td>';
+            tableContent += '<td><a href="#" class="linkshowuser" rel="' + this._id + '">' + this._id + '</a></td>';
+            tableContent += '<td>'+this.TimeStamp + '</td>';
+            tableContent += '<td>'+this.pills + '</td>';
+            //tableContent += '<td><a href="#" class="linkdeleteuser" rel="' + this._id + '">delete</a></td>';
             tableContent += '</tr>';
         });
         //Insert the content string into the html
         $('#userList table tbody').html(tableContent);
         
         $('#userList table tbody').on('click', 'td a.linkshowuser', showUserInfo);
-    });
+     });
+    
+    
+    
+   /* //jQuery AJAX call 
+    $.getJSON('/users/userlist', function(data) {
+        //adds data array to a global object
+        console.log("get data:" + data);
+        userListData = data;
+        $.each(data, function(){
+            tableContent += '<tr>';
+            tableContent += '<td><a href="#" class="linkshowuser" rel="' + this._id + '">' + this._id + '</a></td>';
+            tableContent += '<td>'+this.TimeStamp + '</td>';
+            tableContent += '<td>'+this.pills + '</td>';
+            //tableContent += '<td><a href="#" class="linkdeleteuser" rel="' + this._id + '">delete</a></td>';
+            tableContent += '</tr>';
+        });
+        //Insert the content string into the html
+        $('#userList table tbody').html(tableContent);
+        
+        $('#userList table tbody').on('click', 'td a.linkshowuser', showUserInfo);
+    });*/
 }
 
 function showUserInfo(event) {
@@ -39,19 +64,23 @@ function showUserInfo(event) {
     event.preventDefault();
     
     var thisUserName = $(this).attr('rel');
+    console.log("thisusername: " + thisUserName);
     var userNamesArray = userListData.map(function(arrayItem) {
-        return arrayItem.username;
+        return arrayItem._id;
     });
     
     var arrayPosition = userNamesArray.indexOf(thisUserName);
     
     var thisUserObject = userListData[arrayPosition];
+    console.log("thisuserObject: " + thisUserObject);
     
     //Populate info box
-    $('#userInfoName').text(thisUserObject.fullname);
+    $('#userInfoName').text(thisUserObject.name);
+    $('#userInfoPrescriptionPillNumber').text(thisUserObject.prescriptionPillNumber);
+    $('#userInfoPrescriptionFrequency').text(thisUserObject.prescriptionFrequency);
+    $('#userInfoEmail').text(thisUserObject.email);
     $('#userInfoAge').text(thisUserObject.age);
     $('#userInfoGender').text(thisUserObject.gender);
-    $('#userInfoLocation').text(thisUserObject.location);
     
 };
 
