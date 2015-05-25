@@ -21,17 +21,36 @@ function populateTable(userName){
     
     $.getJSON('/users/'+userName, function(data) {
         var userData = data;
+        var theID;
 
         //Reversing it so that the most recent updates are at the top of the list
         $.each($(userData).get().reverse(), function(){
-            tableContent += '<tr>';
+            tableContent += '<tr id="' +this.pills + '">';
             tableContent += '<td >'+this.TimeStamp + '</td>';
-            tableContent += '<td >'+this.pills + '</td>';
+            tableContent += '<td class="pills">'+this.pills + '</td>';
             //tableContent += '<td><a href="#" class="linkdeleteuser" rel="' + this._id + '">delete</a></td>';
             tableContent += '</tr>';
+            theID = ""+this.pills;
         });
+        
         //Insert the content string into the html
         $('#userData.'+userName+' table#tableBottom tbody').html(tableContent);
+        
+        $("#tableBottom tr").each(function() {
+            var pillValue = $(this).find("td.pills").html();
+            if(pillValue <= 20)
+                $(this).css("background-color", "red");
+            else if(pillValue <= 40)
+                $(this).css("background-color", "#FFC0C0");
+            else if(pillValue <= 60)
+                $(this).css("background-color", "white");
+            else if(pillValue <= 80)
+                $(this).css("background-color", "#E0F0FF");
+            else if(pillValue <= 100)
+                $(this).css("background-color", "#B2E6FF");
+            else if(pillValue <= 120)
+                $(this).css("background-color", "#4D70DB");
+        });
         
         $('#userData.'+userName+' table#tableBottom tbody').on('click', 'td a.linkshowuser', showUserInfo);
      });

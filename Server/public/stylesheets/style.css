@@ -1,6 +1,12 @@
 body {
-  padding: 30px;
   font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+}
+
+.nav {
+    margin: -8px;
+}
+#main {
+    padding: 30px;
 }
 
 h2 {
