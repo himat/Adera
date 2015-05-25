@@ -27,23 +27,23 @@ spark.on('login', function() {
                 'pills' : data.data 
             }
             
-            var corePostName;
+            var coreName;
             if(data.coreid === '53ff6c066667574825460967')
-                corePostName = 'newPlaid';
+                coreName = 'aderaPlaid';
             else
-                corePostName = 'newBlue';
+                coreName = 'aderaBlue';
             
              // Use AJAX to post the object to our dataupdate service
             $.ajax({
                 type: 'POST',
                 data: dataUpdate,
-                url: '/users/'+corePostName,
+                url: '/users/'+coreName,
                 dataType: 'JSON'
             }).done(function( response ) {
                 // Check for successful (blank) response
                 if (response.msg === '') {
                     // Update the table
-                    populateTable();
+                    populateTable(coreName);
 
                 }
                 else {

@@ -33,7 +33,7 @@ function populateTable(userName){
         //Insert the content string into the html
         $('#userData.'+userName+' table#tableBottom tbody').html(tableContent);
         
-        $('#userData.'+username+' table#tableBottom tbody').on('click', 'td a.linkshowuser', showUserInfo);
+        $('#userData.'+userName+' table#tableBottom tbody').on('click', 'td a.linkshowuser', showUserInfo);
      });
     
     
@@ -66,21 +66,21 @@ function showUserInfo(userName) {
     $.getJSON('/users/userslist', function (data) {
         usersList = data;
         userNamesArray = usersList.map(function (arrayItem) {
-            return arrayItem._id;
+            return arrayItem.name;
         });
 
-        var arrayPosition = userNamesArray.indexOf(thisUserName);
+        var arrayPosition = userNamesArray.indexOf(userName);
 
         var thisUserObject = usersList[arrayPosition];
         console.log("thisuserObject: " + thisUserObject);
 
         //Populate info box
-        $('#userInfoName').text(thisUserObject.name);
-        $('#userInfoPrescriptionPillNumber').text(thisUserObject.prescriptionPillNumber);
-        $('#userInfoPrescriptionFrequency').text(thisUserObject.prescriptionFrequency);
-        $('#userInfoEmail').text(thisUserObject.email);
-        $('#userInfoAge').text(thisUserObject.age);
-        $('#userInfoGender').text(thisUserObject.gender);
+        $('#wrapper.'+userName+' #userInfoName').text(thisUserObject.name);
+        $('#wrapper.'+userName+' #userInfoPrescriptionPillNumber').text(thisUserObject.prescriptionPillNumber);
+        $('#wrapper.'+userName+' #userInfoPrescriptionFrequency').text(thisUserObject.prescriptionFrequency);
+        $('#wrapper.'+userName+' #userInfoEmail').text(thisUserObject.email);
+        $('#wrapper.'+userName+' #userInfoAge').text(thisUserObject.age);
+        $('#wrapper.'+userName+' #userInfoGender').text(thisUserObject.gender);
     });
 
 

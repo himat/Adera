@@ -9,7 +9,9 @@ router.get('/userslist', function(req, res) {
     console.log('get sent to /userslist');
    
     db.collection('users').find().toArray(function(err, items) {
-            res.json(items);
+        console.log('USERS OUTPUT: ' + items);
+        res.json(items);
+        
     });
                                                             
 });
@@ -69,8 +71,8 @@ router.post('/newuser', function(req, res) {
 });
 
 
-//POST to add new pill/timestampe data received from the plaid bottle
-router.post('/newPlaid', function(req, res) {
+//POST to add new pill/timestamp data received from the plaid bottle
+router.post('/aderaPlaid', function(req, res) {
     var db = req.db;
     db.collection('aderaPlaid').insert(req.body, function(err, result) {
         res.send(
@@ -80,7 +82,7 @@ router.post('/newPlaid', function(req, res) {
 });
 
 //POST to add new pill/timestampe data received from the blue bottle
-router.post('/newBlue', function(req, res) {
+router.post('/aderaBlue', function(req, res) {
     var db = req.db;
     db.collection('aderaBlue').insert(req.body, function(err, result) {
         res.send(
