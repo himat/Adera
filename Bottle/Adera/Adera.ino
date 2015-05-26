@@ -44,7 +44,7 @@ void loop() {
   weightValue = (analogInputWeight * 3.308)/4096;
 
   pills = weightValue - (0.156 + 0.260);//0.56;
-  apxPillCount = constrain(pills * 120 / 1.61, 0, 120);
+  apxPillCount = constrain(pills * 120 / 1.61, 0, 120);// 120 / 1.607
 
 
   if(previousCapStatus != capStatus)
