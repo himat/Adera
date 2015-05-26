@@ -27,7 +27,6 @@ void setup() {
   pinMode(amp, INPUT);
   pinMode(capRead, INPUT);
 
-  //thisID = Spark.deviceID();
   Spark.deviceID().toCharArray(thisID, 64);
   Spark.variable("coreID", &thisID, STRING);
 }
@@ -43,8 +42,8 @@ void loop() {
   analogInputWeight = analogRead(amp);
   weightValue = (analogInputWeight * 3.308)/4096;
 
-  pills = weightValue - (0.156 + 0.260);//0.56;
-  apxPillCount = constrain(pills * 120 / 1.61, 0, 120);// 120 / 1.607
+  pills = weightValue - (0.156 + 0.260);//plaid bottle: - 0.56;
+  apxPillCount = constrain(pills * 120 / 1.61, 0, 120);//plaid bottle: 120 / 1.62
 
 
   if(previousCapStatus != capStatus)

@@ -1,7 +1,9 @@
-var userListData = [];
-
 $(document).ready(function(){
-    populateTable();
+    populateTable('aderaPlaid');
+    populateTable('aderaBlue');
+    showUserInfo('aderaPlaid');
+    showUserInfo('aderaBlue');
+    
     $('#userList table tbody').on('click', 'td a.linkshowuser', showUserInfo);
     
     $('#btnAddUser').on('click', addNewUser);
@@ -13,46 +15,94 @@ $(document).ready(function(){
 
 
 //Fill table with data
-function populateTable(){
+function populateTable(userName){
     var tableContent = '';
+   
     
-    //jQuery AJAX call 
+    $.getJSON('/users/'+userName, function(data) {
+        var userData = data;
+        var theID;
+
+        //Reversing it so that the most recent updates are at the top of the list
+        $.each($(userData).get().reverse(), function(){
+            tableContent += '<tr id="' +this.pills + '">';
+            tableContent += '<td >'+this.TimeStamp + '</td>';
+            tableContent += '<td class="pills">'+this.pills + '</td>';
+            //tableContent += '<td><a href="#" class="linkdeleteuser" rel="' + this._id + '">delete</a></td>';
+            tableContent += '</tr>';
+            theID = ""+this.pills;
+        });
+        
+        //Insert the content string into the html
+        $('#userData.'+userName+' table#tableBottom tbody').html(tableContent);
+        
+        $("#tableBottom tr").each(function() {
+            var pillValue = $(this).find("td.pills").html();
+            if(pillValue <= 20)
+                $(this).css("background-color", "red");
+            else if(pillValue <= 40)
+                $(this).css("background-color", "#FFC0C0");
+            else if(pillValue <= 60)
+                $(this).css("background-color", "white");
+            else if(pillValue <= 80)
+                $(this).css("background-color", "#E0F0FF");
+            else if(pillValue <= 100)
+                $(this).css("background-color", "#B2E6FF");
+            else if(pillValue <= 120)
+                $(this).css("background-color", "#4D70DB");
+        });
+        
+        $('#userData.'+userName+' table#tableBottom tbody').on('click', 'td a.linkshowuser', showUserInfo);
+     });
+    
+    
+    
+   /* //jQuery AJAX call 
     $.getJSON('/users/userlist', function(data) {
         //adds data array to a global object
+        console.log("get data:" + data);
         userListData = data;
         $.each(data, function(){
             tableContent += '<tr>';
-            tableContent += '<td><a href="#" class="linkshowuser" rel="' + this.username + '">' + this.username + '</a></td>';
-            tableContent += '<td>'+this.email + '</td>';
-            tableContent += '<td><a href="#" class="linkdeleteuser" rel="' + this._id + '">delete</a></td>';
+            tableContent += '<td><a href="#" class="linkshowuser" rel="' + this._id + '">' + this._id + '</a></td>';
+            tableContent += '<td>'+this.TimeStamp + '</td>';
+            tableContent += '<td>'+this.pills + '</td>';
+            //tableContent += '<td><a href="#" class="linkdeleteuser" rel="' + this._id + '">delete</a></td>';
             tableContent += '</tr>';
         });
         //Insert the content string into the html
         $('#userList table tbody').html(tableContent);
         
         $('#userList table tbody').on('click', 'td a.linkshowuser', showUserInfo);
-    });
+    });*/
 }
 
-function showUserInfo(event) {
-    //Prevent link from firing
-    event.preventDefault();
+function showUserInfo(userName) {
+    var usersList, userNamesArray;
     
-    var thisUserName = $(this).attr('rel');
-    var userNamesArray = userListData.map(function(arrayItem) {
-        return arrayItem.username;
+    console.log("thisusername: " + userName);
+
+    $.getJSON('/users/userslist', function (data) {
+        usersList = data;
+        userNamesArray = usersList.map(function (arrayItem) {
+            return arrayItem.name;
+        });
+
+        var arrayPosition = userNamesArray.indexOf(userName);
+
+        var thisUserObject = usersList[arrayPosition];
+        console.log("thisuserObject: " + thisUserObject);
+
+        //Populate info box
+        $('#wrapper.'+userName+' #userInfoName').text(thisUserObject.name);
+        $('#wrapper.'+userName+' #userInfoPrescriptionPillNumber').text(thisUserObject.prescriptionPillNumber);
+        $('#wrapper.'+userName+' #userInfoPrescriptionFrequency').text(thisUserObject.prescriptionFrequency);
+        $('#wrapper.'+userName+' #userInfoEmail').text(thisUserObject.email);
+        $('#wrapper.'+userName+' #userInfoAge').text(thisUserObject.age);
+        $('#wrapper.'+userName+' #userInfoGender').text(thisUserObject.gender);
     });
-    
-    var arrayPosition = userNamesArray.indexOf(thisUserName);
-    
-    var thisUserObject = userListData[arrayPosition];
-    
-    //Populate info box
-    $('#userInfoName').text(thisUserObject.fullname);
-    $('#userInfoAge').text(thisUserObject.age);
-    $('#userInfoGender').text(thisUserObject.gender);
-    $('#userInfoLocation').text(thisUserObject.location);
-    
+
+
 };
 
 function addNewUser(event) {
