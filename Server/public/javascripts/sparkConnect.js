@@ -10,6 +10,7 @@ function getTimeStamp(){
 
 spark.on('login', function() {
     console.log("logged in to spark api");
+    alert("logged into spark api");
     
     
     //Get updates for every event from our devices
@@ -21,6 +22,7 @@ spark.on('login', function() {
         if(data.name === "apxPillCount")
         {
             console.log("pill count: " + data.data);
+            alert("pill count: " + data.data);
             
             var dataUpdate = {
                 'TimeStamp' : getTimeStamp(),
