@@ -28,6 +28,7 @@ void setup() {
   pinMode(capRead, INPUT);
 
   //thisID = Spark.deviceID();
+  Spark.deviceID().toCharArray(thisID, 64);
   Spark.variable("coreID", &thisID, STRING);
 }
 
