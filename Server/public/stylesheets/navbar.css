@@ -7,7 +7,7 @@
 }
 
 .nav li {
-  font-family: 'Oswald', sans-serif;
+  font-family: 'Lucida Calligraphy', sans-serif;
   font-size: 1.2em;
   line-height: 40px;
   height: 40px;
@@ -16,6 +16,7 @@
 
  
 .nav a {
+  font-size: 30px;
   text-decoration: none;
   color: #000;
   display: block;
