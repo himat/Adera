@@ -42,9 +42,13 @@ void loop() {
   analogInputWeight = analogRead(amp);
   weightValue = (analogInputWeight * 3.308)/4096;
 
-  pills = weightValue;// - 0.56;//(0.156 + 0.260);//plaid bottle: - 0.56;
-  apxPillCount = constrain(pills * 120 / 1.62, 0, 120);//plaid bottle: 120 / 1.62
-
+  int iterations = 500;
+  int sum = 0;
+  for (int idx = 0; idx < iterations; idx++) {
+    pills = weightValue - 2.308;// - 0.56;//(0.156 + 0.260);//plaid bottle: - 0.56;
+    sum += constrain(pills * 120 / 0.948, 0, 120);//plaid bottle: 120 / 1.62
+  }
+  apxPillCount = sum / iterations;
 
   if(previousCapStatus != capStatus)
   {
