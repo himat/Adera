@@ -74,6 +74,7 @@ router.post('/newuser', function(req, res) {
 //POST to add new pill/timestamp data received from the plaid bottle
 router.post('/aderaPlaid', function(req, res) {
     var db = req.db;
+    console.log("POSTing to aderaPlaid");
     db.collection('aderaPlaid').insert(req.body, function(err, result) {
         res.send(
             (err === null) ? {msg:''} : {msg:err}
@@ -84,7 +85,9 @@ router.post('/aderaPlaid', function(req, res) {
 //POST to add new pill/timestampe data received from the blue bottle
 router.post('/aderaBlue', function(req, res) {
     var db = req.db;
+    console.log("POSTing to aderaBlue");
     db.collection('aderaBlue').insert(req.body, function(err, result) {
+        console.log(req.body);
         res.send(
             (err === null) ? {msg:''} : {msg:err}
             );

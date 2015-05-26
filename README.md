@@ -10,3 +10,5 @@ Development
 Run 
 ```npm install```
 to install all node dependencies 
+
+Then create a db called `users`

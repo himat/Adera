@@ -26,9 +26,15 @@
 		
         status.innerHTML = "Waiting for data...";
 		document.getElementById("connect").style.visibility = "hidden";
-        var deviceID = "53ff6c066667574825460967";//"54ff6d066667515111461467";
+        var deviceID = "54ff6d066667515111461467";//"53ff6c066667574825460967";//
         var accessToken = "31f6d1bb72071b4025c220f882b5a95a35f396d8";
         var eventSource = new EventSource("https://api.spark.io/v1/devices/" + deviceID + "/events/?access_token=" + accessToken);
+		var eventSource2 = new EventSource("https://api.spark.io/v1/devices/events/?access_token=" + accessToken);
+		
+		eventSource2.addEventListener('capOff', function(e) {
+			console.log('new event cap off'); 
+			}, false);
+		
 		
 
         eventSource.addEventListener('open', function(e) {
