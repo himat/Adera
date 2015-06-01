@@ -20,7 +20,9 @@ a {
 #wrapper {
 	padding-left:312px;
 	position:relative;
+    width: 50%;
 }
+
 
 /*
 #userList {
@@ -103,11 +105,52 @@ th {
 	position:absolute;
 	top:0; left:0;
 }
-	#userInfo p {
-		padding:15px;
-		border:1px solid #CCC;
-		background:rgba(80,120,255,0.05);
-	}
+
+#userData {
+    position:relative;
+	top:0; left:312;
+}
+
+#legend {
+    position: relative;
+    float: right;
+}
+
+#legend td {
+    font-size: 12px;
+    padding: 10px;
+}
+
+#level1 {
+    background-color: red;
+}
+
+#level2 {
+    background-color: #FFC0C0;
+}
+
+#level3 {
+    background-color: white;
+}
+
+#level4 {
+    background-color: #E0F0FF;
+}
+
+#level5 {
+    background-color: #B2E6FF;
+}
+
+#level6 {
+    background-color: #4D70C0;
+}
+
+
+#userInfo p {
+    padding:15px;
+    border:1px solid #CCC;
+    background:rgba(80,120,255,0.05);
+}
 
 fieldset {
 	border:0;

@@ -38,7 +38,7 @@ function sendPillUpdate(coreID) {
     });
 }
 
-var raspberryPi = true;
+var raspberryPi = false;
 
 if(raspberryPi) {
     console.log("RASPBERRY PI MODE ENABLED");
